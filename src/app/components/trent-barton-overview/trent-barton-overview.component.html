@@ -1,0 +1,8 @@
+<p>trent-barton-overview works!</p>
+<div>
+  <select (change)="onSelect($event)">
+    <option value=""></option>
+    <option *ngFor="let stop of stops" [value]="stop">{{ stop }}</option>
+  </select>
+</div>
+<div *ngFor="let bus of stop[0]?.result">bus {{ bus.dueIn | json }}</div>
