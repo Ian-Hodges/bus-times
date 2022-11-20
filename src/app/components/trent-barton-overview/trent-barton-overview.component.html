@@ -1,14 +1,14 @@
-<p>trent-barton-overview works!</p>
-<div>
+<div class="form-group">
   <select (change)="onSelect($event)">
     <option value=""></option>
-    <option *ngFor="let stop of stops" [value]="stop">{{ stop }}</option>
+    <option *ngFor="let stop of favStops" [value]="stop">{{ stop }}</option>
   </select>
 </div>
-<div>
-  <div>{{stop[0]?.stopName}}</div>
-</div>
-<div *ngFor="let bus of stop[0]?.result">
-  <div>serviceName: {{ bus.serviceName | json }}</div>
-  <div>dueIn: {{ bus.dueIn | json }}</div>
+<div *ngFor="let stop of stops" class="form-group">
+  <div style="width: 33%; float: left;">
+      <p>{{stop.stopName}}</p>
+      <div *ngFor="let bus of stop.result" style="margin: 5px;" class="text-center">
+          <p [ngClass]="bus.serviceName">{{ bus.serviceName }} {{ bus.dueIn }}</p>
+      </div>
+  </div>
 </div>
