@@ -5,4 +5,10 @@
     <option *ngFor="let stop of stops" [value]="stop">{{ stop }}</option>
   </select>
 </div>
-<div *ngFor="let bus of stop[0]?.result">bus {{ bus.dueIn | json }}</div>
+<div>
+  <div>{{stop[0]?.stopName}}</div>
+</div>
+<div *ngFor="let bus of stop[0]?.result">
+  <div>serviceName: {{ bus.serviceName | json }}</div>
+  <div>dueIn: {{ bus.dueIn | json }}</div>
+</div>
