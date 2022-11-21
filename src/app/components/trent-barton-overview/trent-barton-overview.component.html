@@ -1,13 +1,21 @@
 <div class="form-group">
-  <select (change)="onSelect($event)">
+  <select class="form-control" (change)="onSelectService($event)">
     <option value=""></option>
-    <option *ngFor="let stop of favStops" [value]="stop">{{ stop }}</option>
+    <option *ngFor="let service of services" [value]="service.Id">{{ service.Name }}</option>
+  </select>
+  <select class="form-control" (change)="onSelectDirection($event)">
+    <option value=""></option>
+    <option *ngFor="let direction of directions" [value]="direction.Id">{{ direction.Name }}</option>
+  </select>
+  <select class="form-control" (change)="onSelectStop($event)">
+    <option value=""></option>
+    <option *ngFor="let stop of stops" [value]="stop.Id">{{ stop.Name }}</option>
   </select>
 </div>
-<div *ngFor="let stop of stops" class="form-group">
+<div *ngFor="let fullStop of fullStops" class="form-group">
   <div style="width: 33%; float: left;">
-      <p>{{stop.stopName}}</p>
-      <div *ngFor="let bus of stop.result" style="margin: 5px;" class="text-center">
+      <p>{{fullStop.stopName}}</p>
+      <div *ngFor="let bus of fullStop.result" style="margin: 5px;" class="text-center">
           <p [ngClass]="bus.serviceName">{{ bus.serviceName }} {{ bus.dueIn }}</p>
       </div>
   </div>

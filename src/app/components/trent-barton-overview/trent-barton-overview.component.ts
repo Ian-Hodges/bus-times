@@ -1,7 +1,9 @@
-import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Stop as Stop } from 'src/app/models/trent-barton/stop';
+import { Direction } from 'src/app/models/trent-barton/direction';
+import { Service } from 'src/app/models/trent-barton/service';
+import { FullStop } from 'src/app/models/trent-barton/fullStop';
 import { TrentBartonService } from 'src/app/services/trent-barton/trent-barton.service';
+import { Stop } from 'src/app/models/trent-barton/stop';
 
 @Component({
   selector: 'app-trent-barton-overview',
@@ -9,17 +11,44 @@ import { TrentBartonService } from 'src/app/services/trent-barton/trent-barton.s
   styleUrls: ['./trent-barton-overview.component.css'],
 })
 export class TrentBartonOverviewComponent implements OnInit {
-  favStops = [19321, 18830, 16900];
+  services: Service[] = [];
+  directions: Direction[] = [];
   stops: Stop[] = [];
+  fullStops: FullStop[] = [];
 
   constructor(private trentBartonService: TrentBartonService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getServices();
+  }
 
-  onSelect(stopId: any) {
+  getServices() {
+    this.services = [];
+    this.directions = [];
     this.stops = [];
     this.trentBartonService
+      .getServices()
+      .subscribe(services => this.services = services);
+  }
+
+  onSelectService(serviceId: any) {
+    this.directions = [];
+    this.stops = [];
+    this.trentBartonService
+      .getDirections(serviceId.target.value)
+      .subscribe(directions => this.directions = directions);
+  }
+
+  onSelectDirection(directionId: any) {
+    this.stops = [];
+    this.trentBartonService
+      .getStops(directionId.target.value)
+      .subscribe(stops => this.stops = stops);
+  }
+
+  onSelectStop(stopId: any) {
+    this.trentBartonService
       .getStop(stopId.target.value)
-      .subscribe((route) => (this.stops = route));
+      .subscribe(fullStops => this.fullStops = fullStops);
   }
 }

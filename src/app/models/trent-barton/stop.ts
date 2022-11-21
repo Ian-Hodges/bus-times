@@ -1,9 +1,4 @@
 export interface Stop {
-  stopName: string,
-  result: [
-    {
-      serviceName: string,
-      dueIn: string
-    },
-  ];
+  Id: number,
+  Name: string,
 }
