@@ -5,11 +5,12 @@ import { TrentBartonOverviewComponent } from './components/trent-barton-overview
 
 const routes: Routes = [
   { path: 'trent-barton-overview', component: TrentBartonOverviewComponent },
+  { path: 'trent-barton-overview/:initialStopId', component: TrentBartonOverviewComponent },
   {
     path: 'nottingham-city-transport-overview',
     component: NottinghamCityTransportOverviewComponent,
   },
-  { path: '', redirectTo: '/trent-barton-overview', pathMatch: 'full' }, // redirect to `first-component`
+  { path: '', redirectTo: '/trent-barton-overview', pathMatch: 'full' },
 ];
 
 @NgModule({

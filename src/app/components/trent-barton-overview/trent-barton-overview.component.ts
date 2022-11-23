@@ -4,6 +4,7 @@ import { Service } from 'src/app/models/trent-barton/service';
 import { FullStop } from 'src/app/models/trent-barton/fullStop';
 import { TrentBartonService } from 'src/app/services/trent-barton/trent-barton.service';
 import { Stop } from 'src/app/models/trent-barton/stop';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-trent-barton-overview',
@@ -16,10 +17,15 @@ export class TrentBartonOverviewComponent implements OnInit {
   stops: Stop[] = [];
   fullStops: FullStop[] = [];
 
-  constructor(private trentBartonService: TrentBartonService) {}
+  constructor(private trentBartonService: TrentBartonService, private activatedroute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getServices();
+
+    this.activatedroute.params.subscribe(params => {
+      const initialStopId = params['initialStopId'];
+      this.getStop(initialStopId);
+    });
   }
 
   getServices() {
@@ -29,6 +35,12 @@ export class TrentBartonOverviewComponent implements OnInit {
     this.trentBartonService
       .getServices()
       .subscribe(services => this.services = services);
+  }
+
+  getStop(stopId: number) {
+    this.trentBartonService
+      .getStop(stopId)
+      .subscribe(fullStops => this.fullStops = fullStops);
   }
 
   onSelectService(serviceId: any) {
@@ -47,8 +59,6 @@ export class TrentBartonOverviewComponent implements OnInit {
   }
 
   onSelectStop(stopId: any) {
-    this.trentBartonService
-      .getStop(stopId.target.value)
-      .subscribe(fullStops => this.fullStops = fullStops);
+    this.getStop(stopId.target.value);
   }
 }
