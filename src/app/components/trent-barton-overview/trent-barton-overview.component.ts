@@ -16,6 +16,8 @@ export class TrentBartonOverviewComponent implements OnInit {
   directions: Direction[] = [];
   stops: Stop[] = [];
   fullStops: FullStop[] = [];
+  favStops: number[] = [];
+  selectedStopId?: number;
 
   constructor(private trentBartonService: TrentBartonService, private activatedroute: ActivatedRoute) {}
 
@@ -38,9 +40,10 @@ export class TrentBartonOverviewComponent implements OnInit {
   }
 
   getStop(stopId: number) {
+    this.selectedStopId = stopId;
     this.trentBartonService
       .getStop(stopId)
-      .subscribe(fullStops => this.fullStops = fullStops);
+      .subscribe(fullStops => this.fullStops = this.fullStops.concat(fullStops));
   }
 
   onSelectService(serviceId: any) {
@@ -60,5 +63,9 @@ export class TrentBartonOverviewComponent implements OnInit {
 
   onSelectStop(stopId: any) {
     this.getStop(stopId.target.value);
+  }
+
+  onAddToFavs(stopId: any) {
+    this.favStops.push(stopId.target.value);
   }
 }

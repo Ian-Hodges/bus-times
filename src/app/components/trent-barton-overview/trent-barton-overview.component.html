@@ -11,6 +11,8 @@
     <option value=""></option>
     <option *ngFor="let stop of stops" [value]="stop.Id">{{ stop.Name }}</option>
   </select>
+  <button (click)="onAddToFavs($event)" [value]="selectedStopId">{{ selectedStopId }}</button>
+  {{favStops | json}}
 </div>
 <div *ngFor="let fullStop of fullStops" class="form-group">
   <div style="width: 33%; float: left;">
